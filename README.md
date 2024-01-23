@@ -1,55 +1,36 @@
-# forms
+# Importantes 
+Arrumar angular pra nova maquina -----------------------------
 > install angular, angular schematics, snippets, auto import, better align, git graph, atom on dark theme//
 > ng new my-app-name --no-standalone --routing --ssr=false 
 > ng add ng add ngx-bootstrap e npm install bootstrap
 
-> ir no arquivo index.hmtl
-<body>
-  <app-root></app-root>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-</body>
+> ir no arquivo angular.json, colocar nos styles: 
+> "styles": [
+    "node_modules/bootstrap/dist/css/bootstrap.min.css",
+    "src/styles.css"
 
-> Criar 2 components ( ng g c dataForm  / ng g c templateForm )
-> no app.component
+
 --------------------------------------------------------------
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
+>Aqui tem um jeito pra verificar token no localstorage, talvez fazer um serviço que faça isso seja uma opção melhor.
 
-        <div class="navbar-header">
-            <a class="navbar-brand" routerLink="">Angular Forms</a>
-        </div>
-
-        <ul class="nav navbar-nav">
-            <li routerLinkActive="active">
-                <a routerLink="/templateForm">Form - Template Driven</a>
-            </li>
-            <li routerLinkActive="active">
-                <a routerLink="/dataForm">Form - Data Driven</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<div class="container">
-    <router-outlet></router-outlet>
-</div>
---------------------------------------------------------------
-> e depois no app routing module 
-
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { TemplateFormComponent } from './template-form/template-form.component';
-import { DataFormComponent } from './data-form/data-form.component';
-
-const routes: Routes = [
-    { path: 'templateForm', component: TemplateFormComponent},
-    { path: 'dataForm', component: DataFormComponent },
-    { path: '', redirectTo: 'templateForm', pathMatch: 'full'}
-];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
---------------------------------------------------------------
+>tokenExpired pega uma string do token, faz umas paradas pra pegar a parte final que tem o exp (expires)
+>dps mete uma matematica pra pegar a data de expiração
+        private tokenExpired(token: any) {
+            const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+            return (Math.floor((new Date).getTime() / 1000)) >= expiry;
+        };
+>quando a pagina iniciar, ve se o token esta expirado, se esta adiciona a logica dps...
+>
+        ngOnInit() {
+            if(localStorage.getItem('token')){
+                if(this.tokenExpired(localStorage.getItem('token'))){
+                //logica token expirado.
+                    this.isLogged = false;
+                    console.log('checking token...')
+                    setTimeout(() => {
+                        localStorage.clear();
+                        console.log('token expirado', (localStorage.getItem('token')))
+                        this.route.navigate(['']);
+                    }, 3000);
+                };
+            };
