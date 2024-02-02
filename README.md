@@ -34,3 +34,14 @@ Arrumar angular pra nova maquina -----------------------------
                     }, 3000);
                 };
             };
+
+-------------------------------- > ----------------------------------------------->
+colocar a poha de um background scrollbars
+<div class="bg-image" style="background-image: 
+        url('../../assets/algumaImagemQueVoceQuiser.xx'); 
+        height: 100vh; 
+        background-size: cover; 
+        background-position: center;
+        vertical-align: top;"> <header e router-outlet> 
+</div>
+
