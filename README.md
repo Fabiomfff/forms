@@ -45,3 +45,9 @@ colocar a poha de um background scrollbars
         vertical-align: top;"> <header e router-outlet> 
 </div>
 
+compressão gzip
+    Run npm install -g gzipper to install gzipper globally
+    Run ng build --prod or your build script in angular project
+    Run gzipper compress ./dist to compress the files in dist folder
+    Note: Enable gzip compression on server end
+
