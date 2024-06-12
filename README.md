@@ -51,3 +51,45 @@ compressão gzip
     Run gzipper compress ./dist to compress the files in dist folder
     Note: Enable gzip compression on server end
 
+
+--------------------------------------------------------------- > 
+
+botão com efeito de vidro
+
+
+.button-manual {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    box-shadow: none;
+    letter-spacing: 3px;
+    position: relative; /* Required for the pseudo-element positioning */
+    overflow: hidden; 
+    transition: all 0.4s ease 0.2s;
+}
+
+.button-manual:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Light reflection effect */
+}
+
+.button-manual::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -50%;
+    width: 0;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.775); /* Light line color */
+    transform: translateY(-50%) rotate(45deg); /* Rotate the line to make it diagonal */
+    transition: left 1s ease, width 1s ease;
+}
+
+
+.button-manual:hover::before {
+    left: 70%;
+    width: 400%;
+}
